@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Index</title>
+    <link rel="stylesheet" type="text/css" href="/public/style.css">
+    <link rel="icon" type="image/x-icon" href="https://p7.hiclipart.com/preview/952/176/914/drawing-pokemon-pokeball-png.jpg">
+  
+</head>
+<body>
+  
+    <div class="container">
+
+        <h1 class="title">Pokemon Detail Finder</h1>
+
+        <form action="/submit" method="post" class="search-form">
+            <div class="input-container">
+                <input type="text" name="pokemon" placeholder="Add your Pokemon!" class="pokemon-input">
+                <button type="submit" class="search-button">Go!</button> 
+            </div>
+        </form>
+
+        <div class="error-message">
+            <% if (data && data.error) { %> 
+                <%= "Pokemon not found, please search again" %>
+            <% } %>
+        </div>
+       
+        <form action="/random" method="get">
+            <button type="submit" class="random-button">Random</button>
+        </form>
+
+        <div class="pokemon-details">
+            <img src=<%= data.sprites.front_default %> alt="" class="pokemon-image">
+            <h2 class="pokemon-name"><%=data.name.toUpperCase()%></h2>
+            <p class="pokemon-info">ID: <%= data.id %></p>
+            <p class="pokemon-info">Type: <%= data.types[0].type.name.toUpperCase() %></p>
+            <p class="pokemon-info">Height: <%= data.height %>FT</p>
+            <p class="pokemon-info">Weight: <%= data.weight %>LBS</p>
+            <h3 class="moves-header">Number of Moves: <%= data.moves.length %></h3>
+            
+            <ul class="moves-list">
+                <% data.moves.forEach(move => { %>
+                    <li class="move-item">
+                        <%= move.move.name.toUpperCase() %>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
